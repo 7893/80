@@ -27,7 +27,7 @@ tags: [DNS,DNSPpod,Cloudflare,DigitalOcean,Vultr,Linode,ns1,Dyn,DNSimple,DNSMade
 国际版网站给出了一个[成功案例][4]，里面有[星巴克中国][5]，星巴克中国作为腾讯的战略合作伙伴选择的不是国内版 DNSPod 而是国际版，囧，这当然不是考虑到备案和域名实名制问题（星巴克中国在上海）。当前（2017年12月27日）DNSPod 国际版首页顶部出现提示文字：
 > DNSPod 国际版解析业务暂停维护，不影响您继续使用。如操作过程中给您带来不便，敬请谅解！国内用户请访问 www.dnspod.cn 。
 
-## [Cloudflare DNS][83]##
+## [Cloudflare DNS][83] ##
 **方案：**免费版，专业版，商业版，企业版
 
 全球知名的 CDN 服务商，世界级 DNS 服务商，属于这个行业的第一梯队的企业。
@@ -197,7 +197,7 @@ DNS 领域的全球老大哥 DNS Made Easy 团队设计开发的 DNS 产品，�
 
 特性：相比 DNS Pro 多了客服支持，100% SLA，电话支持等等。
 
-## [HE.net DNS][24]##
+## [HE.net DNS][24] ##
 **方案：**免费
 
 免费，稳定，强大，古老的 HE DNS 几乎无人不知。
