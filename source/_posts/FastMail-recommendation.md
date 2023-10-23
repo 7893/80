@@ -34,7 +34,7 @@ SPF DMARC DKIM 这种一看名字就高端到不行的东西。（SFP 很多国�
 
 ## [价格](https://www.fastmail.com/pricing/)
 
-官网页面很清楚了。可以免费试用一个月，国内手机如果无法注册请直接联系客服邮箱帮你注册一个账号。试用账号限制了可潜在造成滥用的功能，比如[限制了邮件发送数量](https://www.fastmail.com/help/account/limits.html)，[无法创建静态网站](https://www.fastmail.com/help/files/website.html)，[无法使用转发规则](https://www.fastmail.com/help/receive/forward.html)。年付有优惠具体请看价格页面。另外，使用[个人邀请](https://www.fastmail.com/?STKI=16759801) (https://www.fastmail.com/?STKI=16759801) 首年可以打九折！就是标准版首年 $45 。
+官网页面很清楚了。可以免费试用一个月，国内手机如果无法注册请直接联系客服邮箱帮你注册一个账号。试用账号限制了可潜在造成滥用的功能，比如[限制了邮件发送数量](https://www.fastmail.com/help/account/limits.html)，[无法创建静态网站](https://www.fastmail.com/help/files/website.html)，[无法使用转发规则](https://www.fastmail.com/help/receive/forward.html)。年付有优惠具体请看价格页面。另外，使用[个人邀请](https://ref.fm/u16759801) ([https://ref.fm/u16759801](https://ref.fm/u16759801)) 首年可以打九折！就是标准版首年 $45 。
 
 ## 容量额度
 
@@ -158,7 +158,7 @@ FastMail Files 不支持 IPv6
 
 ## 对比
 
-了解完了是不是觉得简直强大专业了一脸？回头一想我们的网易邮箱腾讯邮箱简直……注册一个月免费试试吧~别忘了使用我的[个人邀请](https://www.fastmail.com/?STKI=16759801) (https://www.fastmail.com/?STKI=16759801) 在你付费的时候打九折~
+了解完了是不是觉得简直强大专业了一脸？回头一想我们的网易邮箱腾讯邮箱简直……注册一个月免费试试吧。别忘了使用我的[个人邀请](https://ref.fm/u16759801)在你付费的时候打九折~
 
 那么问题来了，你觉得是 Gmail 强大呢还是 FastMail 更酷呢？
 
