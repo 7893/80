@@ -1,0 +1,42 @@
+# 工作流的名称
+name: Deploy Worker '80'
+
+# 工作流的触发条件：当有代码推送到 main 分支时自动运行
+on:
+  push:
+    branches:
+      - main
+
+# 工作流包含的任务
+jobs:
+  deploy:
+    # 任务运行在最新的 Ubuntu 环境中
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Workers
+    
+    # 任务的步骤
+    steps:
+      # 第一步：检出你的代码仓库
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 第二步：设置 Node.js 环境，我们使用版本 22
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 第三步：安装 pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 第四步：安装项目所有依赖
+      - name: Install dependencies
+        run: pnpm install
+
+      # 第五步：使用 Wrangler 部署到 Cloudflare
+      - name: Deploy to Cloudflare
+        run: pnpm wrangler deploy
+        env:
+          # 从 GitHub Secrets 中读取 API Token 用于认证
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
