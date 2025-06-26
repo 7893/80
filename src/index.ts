@@ -1,6 +1,6 @@
 // 从旁边的 index.html 文件导入其原始内容，作为一个字符串
-// "?raw" 是这里的关键，它告诉打包工具将文件作为纯文本导入
-import htmlContent from './index.html?raw';
+// 我们在 wrangler.toml 中定义了规则，所以这里不再需要 "?raw" 后缀
+import htmlContent from './index.html';
 
 export default {
     // 当 Worker 收到请求时，fetch 函数会被调用

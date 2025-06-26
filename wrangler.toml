@@ -1,3 +1,8 @@
 name = "80"
 main = "src/index.ts"
-compatibility_date = "2025-06-27"
+compatibility_date = "2025-06-26"
+
+# 添加这个构建规则，告诉 wrangler 如何处理 .html 文件
+[[build.rules]]
+type = "Text" # 将文件作为纯文本处理
+globs = ["**/*.html"] # 这个规则应用于所有 .html 文件
