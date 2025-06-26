@@ -1,5 +1,5 @@
 # 工作流的名称
-name: Deploy Worker '80'
+name: Deploy Worker
 
 # 工作流的触发条件：当有代码推送到 main 分支时自动运行
 on:
