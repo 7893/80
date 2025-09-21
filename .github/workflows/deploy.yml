@@ -25,11 +25,26 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'pnpm'
 
-      # 第三步：安装 pnpm
-      - name: Install pnpm
-        run: npm install -g pnpm
+      # 第三步：使用 Corepack 管理 pnpm（推荐）
+      - name: Enable Corepack and set pnpm
+        run: |
+          corepack enable
+          corepack use pnpm@9
+
+      # 缓存 pnpm 的内容寻址存储目录，加速安装
+      - name: Get pnpm store directory
+        id: pnpm-store
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
 
       # 第四步：安装项目所有依赖
       - name: Install dependencies
