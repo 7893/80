@@ -2,7 +2,7 @@ name = "80"
 main = "src/index.ts"
 compatibility_date = "2025-06-26"
 
-# 将所有 .html 文件作为文本模块处理
+# 仅将入口 HTML 作为文本模块处理，避免误匹配
 [[build.rules]]
 type = "Text"
-globs = ["**/*.html"]
+globs = ["src/index.html"]

@@ -9,12 +9,13 @@
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
-		"test": "vitest",
+		"typecheck": "tsc --noEmit",
+		"test": "pnpm -s typecheck",
 		"cf-typegen": "wrangler types"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20250620.0",
-		"typescript": "^5.5.2",
-		"wrangler": "^4.22.0"
+		"@cloudflare/workers-types": "^4.20250921.0",
+		"typescript": "^5.9.2",
+		"wrangler": "^4.38.0"
 	}
 }
