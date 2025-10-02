@@ -30,6 +30,9 @@ build/Release
 dist
 out
 
+## Generated static assets
+assets/
+
 ## Dependency directories
 node_modules/
 jspm_packages/
