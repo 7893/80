@@ -1,5 +1,5 @@
 {
-	"name": "color-generator",
+	"name": "80",
 	"private": true,
 	"scripts": {
 		"dev": "wrangler dev",
