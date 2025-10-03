@@ -1,41 +1,29 @@
-# 工作流的名称
 name: Deploy Worker
 
-# 工作流的触发条件：当有代码推送到 main 分支时自动运行
 on:
   push:
     branches:
       - main
 
-# 工作流包含的任务
 jobs:
   deploy:
-    # 任务运行在最新的 Ubuntu 环境中
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Workers
     
-    # 任务的步骤
     steps:
-      # 第一步：检出你的代码仓库
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 第二步：设置 Node.js 环境，我们使用版本 22
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      # 第三步：使用 Corepack 管理 pnpm（推荐）
-      - name: Enable Corepack and set pnpm
-        run: |
-          corepack enable
-          corepack use pnpm@9
+      - name: Enable Corepack
+        run: corepack enable
 
-      # 缓存 pnpm 的内容寻址存储目录，加速安装
       - name: Get pnpm store directory
         id: pnpm-store
-        shell: bash
         run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
 
       - name: Cache pnpm store
@@ -43,27 +31,20 @@ jobs:
         with:
           path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
           key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-store-${{ runner.os }}-
+          restore-keys: pnpm-store-${{ runner.os }}-
 
-      # 第四步：安装项目所有依赖
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      # 类型检查（作为最基础的质量门）
       - name: Typecheck
-        run: pnpm run typecheck
+        run: pnpm typecheck
 
-      # 第五步：使用 Wrangler 部署到 Cloudflare
       - name: Deploy to Cloudflare
-        run: pnpm wrangler deploy
+        run: pnpm deploy
         env:
-          # 从 GitHub Secrets 中读取 API Token 用于认证
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          # 可选：显式提供 account id，避免依赖隐式推断
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-    # 避免并发部署相互覆盖
     concurrency:
       group: workers-deploy-${{ github.ref }}
       cancel-in-progress: true
