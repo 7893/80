@@ -1,12 +1,14 @@
 {
-	"name": "80",
-	"version": "0.0.0",
+	"name": "color-generator",
+	"version": "1.0.0",
+	"description": "A simple random color generator deployed on Cloudflare Workers",
 	"private": true,
 	"engines": {
 		"node": ">=22.0.0 <23.0.0"
 	},
 	"packageManager": "pnpm@10.17.0",
 	"scripts": {
+		"build": "./scripts/build.sh",
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
@@ -18,5 +20,13 @@
 		"@cloudflare/workers-types": "^4.20250921.0",
 		"typescript": "^5.9.2",
 		"wrangler": "^4.38.0"
-	}
+	},
+	"keywords": [
+		"color-generator",
+		"cloudflare-workers",
+		"typescript",
+		"random-colors"
+	],
+	"author": "Your Name",
+	"license": "MIT"
 }

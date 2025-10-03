@@ -1,4 +1,4 @@
-name = "80"
+name = "color-generator"
 main = "src/index.ts"
 compatibility_date = "2025-06-26"
 
