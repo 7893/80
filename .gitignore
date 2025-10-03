@@ -27,11 +27,12 @@ coverage
 ## Build artifacts
 build/
 build/Release
-dist
-out
+dist/
+out/
 
 ## Generated static assets
 assets/
+public/
 
 ## Dependency directories
 node_modules/
@@ -110,3 +111,24 @@ Thumbs.db
 .dev.vars
 .wrangler/
 worker-configuration.d.ts
+
+## Development and preview files
+*.local
+*.tmp
+*.temp
+.preview/
+.dev/
+
+## Editor backups
+*~
+*.swp
+*.swo
+.vscode/settings.json
+
+## Test coverage
+coverage/
+.nyc_output/
+
+## Lock files (keep pnpm-lock.yaml)
+package-lock.json
+yarn.lock
