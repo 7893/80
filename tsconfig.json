@@ -6,15 +6,6 @@
 		"moduleResolution": "bundler",
 		"types": ["@cloudflare/workers-types"],
 		"strict": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"forceConsistentCasingInFileNames": true,
-		"noEmit": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"exactOptionalPropertyTypes": true
-	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", "dist", "build"]
+		"skipLibCheck": true
+	}
 }
