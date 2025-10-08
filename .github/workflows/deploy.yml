@@ -1,8 +1,9 @@
 name: Deploy
 
-on:
-  push:
-    branches: [main]
+# Temporarily disabled due to API token issues
+# on:
+#   push:
+#     branches: [main]
 
 jobs:
   deploy:
