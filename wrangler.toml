@@ -1,7 +1,4 @@
 name = "80"
-main = "src/index.ts"
 compatibility_date = "2025-06-26"
 
-[[build.rules]]
-type = "Text"
-globs = ["src/index.html"]
+pages_build_output_dir = "public"
