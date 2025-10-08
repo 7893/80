@@ -16,7 +16,7 @@ const createSecurityHeaders = (initialHeaders?: Headers, nonce?: string): Header
 
   const csp = nonce
     ? `default-src 'self'; script-src 'self' 'nonce-${nonce}'; style-src 'self' 'nonce-${nonce}'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'`
-    : "default-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'";
+    : "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'";
 
   headers.set('Content-Security-Policy', csp);
   return headers;
@@ -78,6 +78,16 @@ const renderHtml = (nonce: string): string => `<!DOCTYPE html>
       (() => {
         const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
+        const hue2rgb = (p, q, t) => {
+          let value = t;
+          if (value < 0) value += 1;
+          if (value > 1) value -= 1;
+          if (value < 1 / 6) return p + (q - p) * 6 * value;
+          if (value < 1 / 2) return q;
+          if (value < 2 / 3) return p + (q - p) * (2 / 3 - value) * 6;
+          return p;
+        };
+
         const hslToHex = (h, s, l) => {
           const normalizedHue = h / 360;
           const normalizedSaturation = s / 100;
@@ -87,16 +97,6 @@ const renderHtml = (nonce: string): string => `<!DOCTYPE html>
             const value = Math.round(normalizedLightness * 255).toString(16).padStart(2, '0');
             return '#' + value + value + value;
           }
-
-          const hue2rgb = (p, q, t) => {
-            let value = t;
-            if (value < 0) value += 1;
-            if (value > 1) value -= 1;
-            if (value < 1 / 6) return p + (q - p) * 6 * value;
-            if (value < 1 / 2) return q;
-            if (value < 2 / 3) return p + (q - p) * (2 / 3 - value) * 6;
-            return p;
-          };
 
           const q =
             normalizedLightness < 0.5
@@ -113,19 +113,21 @@ const renderHtml = (nonce: string): string => `<!DOCTYPE html>
         };
 
         const setFavicon = (hex) => {
-          const canvas = document.createElement('canvas');
-          canvas.width = 16;
-          canvas.height = 16;
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            return;
-          }
-          ctx.fillStyle = hex;
-          ctx.fillRect(0, 0, 16, 16);
-          const link = document.querySelector('link[rel="icon"]');
-          if (link) {
-            link.setAttribute('href', canvas.toDataURL('image/png'));
-          }
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = 16;
+            canvas.height = 16;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+              return;
+            }
+            ctx.fillStyle = hex;
+            ctx.fillRect(0, 0, 16, 16);
+            const link = document.querySelector('link[rel="icon"]');
+            if (link) {
+              link.setAttribute('href', canvas.toDataURL('image/png'));
+            }
+          } catch (e) {}
         };
 
         window.addEventListener('load', () => {
