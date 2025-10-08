@@ -1,1 +1,1 @@
-A random color generator deployed on Cloudflare Pages with hardware acceleration.
+# Random Color Generator with Hardware Acceleration
