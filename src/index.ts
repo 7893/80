@@ -7,7 +7,8 @@ const generateNonce = (): string => {
   return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
 };
 
-const applySecurityHeaders = (headers: Headers, nonce?: string): Headers => {
+const createSecurityHeaders = (initialHeaders?: Headers, nonce?: string): Headers => {
+  const headers = initialHeaders || new Headers();
   headers.set('Cache-Control', 'no-store');
   headers.set('X-Content-Type-Options', 'nosniff');
   headers.set('Referrer-Policy', 'no-referrer');
@@ -167,19 +168,19 @@ const renderHtml = (nonce: string): string => `<!DOCTYPE html>
 export default {
   async fetch(request: Request): Promise<Response> {
     if (request.method === 'OPTIONS') {
-      const headers = applySecurityHeaders(new Headers(), undefined);
+      const headers = createSecurityHeaders();
       headers.set('Allow', ALLOW_HEADER_VALUE);
       return new Response(null, { status: 204, headers });
     }
 
     if (!ALLOWED_METHODS.has(request.method)) {
-      const headers = applySecurityHeaders(new Headers(), undefined);
+      const headers = createSecurityHeaders();
       headers.set('Allow', ALLOW_HEADER_VALUE);
       return new Response(null, { status: 405, statusText: 'Method Not Allowed', headers });
     }
 
     const nonce = generateNonce();
-    const headers = applySecurityHeaders(new Headers({ 'Content-Type': 'text/html; charset=utf-8' }), nonce);
+    const headers = createSecurityHeaders(new Headers({ 'Content-Type': 'text/html; charset=utf-8' }), nonce);
     const body = request.method === 'HEAD' ? null : renderHtml(nonce);
 
     return new Response(body, { status: 200, headers });
