@@ -1,1 +1,1 @@
-# GPU-accelerated random colour Cloudflare Worker.
+# Random colour Cloudflare Worker.
