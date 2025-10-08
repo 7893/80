@@ -11,18 +11,13 @@ const applySecurityHeaders = (headers: Headers, nonce?: string): Headers => {
   headers.set('Cache-Control', 'no-store');
   headers.set('X-Content-Type-Options', 'nosniff');
   headers.set('Referrer-Policy', 'no-referrer');
-  if (nonce) {
-    headers.set(
-      'Content-Security-Policy',
-      `default-src 'self'; script-src 'self' 'nonce-${nonce}'; style-src 'self' 'nonce-${nonce}'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-ancestors 'none'`,
-    );
-  } else {
-    headers.set(
-      'Content-Security-Policy',
-      "default-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-ancestors 'none'",
-    );
-  }
+  headers.set('Permissions-Policy', 'interest-cohort=()');
 
+  const csp = nonce
+    ? `default-src 'self'; script-src 'self' 'nonce-${nonce}'; style-src 'self' 'nonce-${nonce}'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'`
+    : "default-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'";
+
+  headers.set('Content-Security-Policy', csp);
   return headers;
 };
 
@@ -33,11 +28,7 @@ const renderHtml = (nonce: string): string => `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>#000000</title>
-    <link
-      type="image/x-icon"
-      rel="shortcut icon"
-      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHklEQVQ4T2NkYGD4z0ABYBw1gGE0DBhGw4BhWIQBAE5OEAELnjVHAAAAAElFTkSuQmCC"
-    >
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHklEQVQ4T2NkYGD4z0ABYBw1gGE0DBhGw4BhWIQBAE5OEAELnjVHAAAAAElFTkSuQmCC">
     <style nonce="${nonce}">
       :root {
         --color: #000000;
@@ -93,7 +84,7 @@ const renderHtml = (nonce: string): string => `<!DOCTYPE html>
 
           if (normalizedSaturation === 0) {
             const value = Math.round(normalizedLightness * 255).toString(16).padStart(2, '0');
-            return \`#\${value}\${value}\${value}\`;
+            return '#' + value + value + value;
           }
 
           const hue2rgb = (p, q, t) => {
@@ -117,7 +108,7 @@ const renderHtml = (nonce: string): string => `<!DOCTYPE html>
           const b = hue2rgb(p, q, normalizedHue - 1 / 3);
 
           const toHex = (value) => Math.round(value * 255).toString(16).padStart(2, '0');
-          return \`#\${toHex(r)}\${toHex(g)}\${toHex(b)}\`;
+          return '#' + toHex(r) + toHex(g) + toHex(b);
         };
 
         const setFavicon = (hex) => {
@@ -130,9 +121,9 @@ const renderHtml = (nonce: string): string => `<!DOCTYPE html>
           }
           ctx.fillStyle = hex;
           ctx.fillRect(0, 0, 16, 16);
-          const link = document.querySelector('link[rel="shortcut icon"]');
+          const link = document.querySelector('link[rel="icon"]');
           if (link) {
-            link.href = canvas.toDataURL('image/png');
+            link.setAttribute('href', canvas.toDataURL('image/png'));
           }
         };
 
@@ -151,11 +142,11 @@ const renderHtml = (nonce: string): string => `<!DOCTYPE html>
             const saturation = randomInt(55, 75);
             const lightness = randomInt(40, 60);
 
-            document.documentElement.style.setProperty('--color', \`hsl(\${hue}, \${saturation}%, \${lightness}%)\`);
+            document.documentElement.style.setProperty('--color', 'hsl(' + hue + ', ' + saturation + '%, ' + lightness + '%)');
             const hex = hslToHex(hue, saturation, lightness);
             document.title = hex;
             colorElement.textContent = hex;
-            document.documentElement.style.setProperty('--color-transparent', \`\${hex}22\`);
+            document.documentElement.style.setProperty('--color-transparent', hex + '22');
 
             setFavicon(hex);
           };
@@ -189,8 +180,8 @@ export default {
 
     const nonce = generateNonce();
     const headers = applySecurityHeaders(new Headers({ 'Content-Type': 'text/html; charset=utf-8' }), nonce);
-
     const body = request.method === 'HEAD' ? null : renderHtml(nonce);
+
     return new Response(body, { status: 200, headers });
   },
 };
