@@ -3,7 +3,7 @@
 	"private": true,
 	"scripts": {
 		"pages:dev": "wrangler pages dev public",
-		"deploy": "wrangler pages deploy public"
+		"deploy": "wrangler pages deploy public --project-name=80"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20250921.0",
