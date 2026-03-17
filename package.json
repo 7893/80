@@ -1,6 +1,10 @@
 {
 	"name": "80",
 	"private": true,
+	"engines": {
+		"node": ">=24.0.0",
+		"npm": ">=11.0.0"
+	},
 	"scripts": {
 		"dev": "wrangler dev",
 		"deploy": "wrangler deploy"
@@ -8,6 +12,6 @@
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20260313.1",
 		"typescript": "^5.9.3",
-		"wrangler": "^4.73.0"
-	}
-}
+		"wrangler": "^4.74.0"
+		}
+		}
