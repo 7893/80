@@ -10,8 +10,8 @@
 		"deploy": "wrangler deploy"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20260313.1",
+		"@cloudflare/workers-types": "^4.20260418.1",
 		"typescript": "^5.9.3",
-		"wrangler": "^4.74.0"
-		}
-		}
+		"wrangler": "^4.83.0"
+	}
+}
