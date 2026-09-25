@@ -1,15 +1,11 @@
 name: Deploy
 
 on:
-  workflow_dispatch:
-
-permissions:
-  contents: read
+  push:
+    branches: [main]
 
 jobs:
   deploy:
-    if: github.ref == 'refs/heads/main'
-    environment: production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
