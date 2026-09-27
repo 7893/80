@@ -1,3 +1,3 @@
-# 80
+# Eventide
 
-A little color, a little surprise. Click to find the next shade.
+A quiet cosmic scene with luminous orbits and distant stars. Touch the light, shift your perspective, or enjoy the stillness.
