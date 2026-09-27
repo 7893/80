@@ -1,5 +1,3 @@
 # 80
 
-A minimal random-color page. Click to change the color.
-
-`pnpm install` · `pnpm dev` · `pnpm deploy`
+A little color, a little surprise. Click to find the next shade.
